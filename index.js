@@ -8,7 +8,7 @@ const CLIENT_ID = '708375600531767336'
 /**
  * @type {TetrioWindow}
  */
-let tetrioGame
+let tetrioWindow
 
 /**
  * @type {TetrioRichPresence}
@@ -16,21 +16,21 @@ let tetrioGame
 let tetrioRichPresence
 
 const openTetrio = () => {
-    tetrioGame = new TetrioWindow()
-    tetrioRichPresence = new TetrioRichPresence(CLIENT_ID, tetrioGame)
+    tetrioWindow = new TetrioWindow()
+    tetrioRichPresence = new TetrioRichPresence(CLIENT_ID, tetrioWindow)
 
-    tetrioGame.on('tetrio-started', () => {
+    tetrioWindow.on('tetrio-started', () => {
         tetrioRichPresence.start()
     })
 
-    tetrioGame.on('tetrio-closed', () => {
-        tetrioGame = undefined
+    tetrioWindow.on('tetrio-closed', () => {
+        tetrioWindow = undefined
         tetrioRichPresence = undefined
     })
 }
 
 app.on('activate', async () => {
-    if (!tetrioGame) await openTetrio()
+    if (!tetrioWindow) await openTetrio()
 })
 
 app.on('ready', async () => {
