@@ -1,22 +1,21 @@
 const path                      = require('path')
-const ElectronStore             = require('electron-store')
 const { EventEmitter }          = require('events')
 const { BrowserWindow, shell }  = require('electron')
 const { fetchTetrioState }      = require('../utils/tetrio-state')
-
-const store = new ElectronStore()
+const TetrioStore               = require('./TetrioStore')
 
 class TetrioWindow extends EventEmitter {
 
     constructor() {
         super()
+        this._store = new TetrioStore()
         this._window = new BrowserWindow({
             title: 'TETR.IO',
             show: false,
             backgroundColor: "#111111",
             icon: path.join(__dirname, '..', 'build', 'icon.ico'),
             webPreferences: { enableRemoteModule: false },
-            ...store.get('window-bounds', { width: 1280, height: 720 })
+            ...this._store.getBounds()
         })
 
         this._initialize()
@@ -25,11 +24,10 @@ class TetrioWindow extends EventEmitter {
     async _initialize() {
         this._window.on('ready-to-show', () => {
             this._window.show()
+            this._store.initialize(this._window)
+            if (this._store.getIsMaximized())
+                this._window.maximize()
             this.emit('tetrio-started')
-        })
-        
-        this._window.on('close', () => {
-            store.set('window-bounds', this._window.getBounds())
         })
 
         this._window.on('closed', () => {
