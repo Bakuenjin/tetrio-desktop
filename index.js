@@ -24,6 +24,7 @@ const openTetrio = () => {
     })
 
     tetrioWindow.on('tetrio-closed', () => {
+        tetrioRichPresence.disconnect()
         tetrioWindow = undefined
         tetrioRichPresence = undefined
     })
