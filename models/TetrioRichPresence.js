@@ -1,21 +1,23 @@
 const richPresence = require('discord-rich-presence')
-const TetrioWindow = require('./TetrioWindow')
+const TetrioStateManager = require('./TetrioStateManager')
 
-const UPDATE_INTERVAL = 15 * 1000
+const UPDATE_INTERVAL = 5 * 1000
 
 class TetrioRichPresence {
 
     /**
      * @param {string} id 
-     * @param {TetrioWindow} tetrio 
+     * @param {TetrioStateManager} tetrio 
      */
     constructor(id, tetrio) {
         this._id = id
         this._tetrio = tetrio
+        this._prevState = {}
         this.connect()
     }
 
-    start() {
+    async start() {
+        await this._tetrio.observe()
         this._interval = setInterval(
             () => { this._updatePresence() }, 
             UPDATE_INTERVAL
@@ -39,14 +41,17 @@ class TetrioRichPresence {
         this._rp = undefined
     }
 
-    async _updatePresence() {
-        if (!this._rp || !this._tetrio.isActive) return
-        
-        const gameState = await this._tetrio.fetchGameState()
-        if (!gameState) return
+    _updatePresence() {
+        if (!this._rp) return
 
+        const currState = this._tetrio.state
+
+        if (this._prevState.state === currState.state && this._prevState.details === currState.details)
+            return
+
+        this._prevState = currState
         this._rp.updatePresence({
-            ...gameState,
+            ...currState,
             largeImageKey: 'default',
             instance: true
         })

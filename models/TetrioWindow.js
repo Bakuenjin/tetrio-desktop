@@ -1,7 +1,7 @@
 const path                      = require('path')
 const { EventEmitter }          = require('events')
 const { BrowserWindow, shell }  = require('electron')
-const { fetchTetrioState }      = require('../utils/tetrio-state')
+const { fetchTetrioState }      = require('../utils/fetch-tetrio-state')
 const TetrioStore               = require('./TetrioStore')
 
 class TetrioWindow extends EventEmitter {
