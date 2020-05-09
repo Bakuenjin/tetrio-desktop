@@ -65,7 +65,7 @@ exports.convertTetrioState = (prev, curr) => {
     if (startedPlaying(prev, curr)) {
         const playingState = PLAYING_STATES[prev.menu]
         return {
-            state: curr.username + ` (Level ${curr.level})`,
+            state: curr.username + ` | Level ${curr.level}`,
             details: playingState ? `Playing (${playingState})` : 'Playing',
             smallImageKey: curr.rank.replace('+', 'p'),
             smallImageText: `Rank: ${curr.rank === 'z' ? 'None' : curr.rank.toUpperCase()}`
@@ -77,7 +77,7 @@ exports.convertTetrioState = (prev, curr) => {
     })
 
     return {
-        state: curr.username + ` (Level ${curr.level})`,
+        state: curr.username + ` | Level ${curr.level}`,
         details: menuState ? menuState : 'Main Menu',
         smallImageKey: curr.rank.replace('+', 'p'),
         smallImageText: `Rank: ${curr.rank === 'z' ? 'None' : curr.rank.toUpperCase()}`
