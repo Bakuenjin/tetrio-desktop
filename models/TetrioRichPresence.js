@@ -26,6 +26,7 @@ class TetrioRichPresence {
     }
 
     stop() {
+        this._tetrio.stopObserving()
         if (typeof this._interval === 'number') {
             clearInterval(this._interval)
             this._interval = undefined
