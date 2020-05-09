@@ -24,8 +24,10 @@ class TetrioRichPresence {
     }
 
     stop() {
-        if (typeof this._interval === 'number')
+        if (typeof this._interval === 'number') {
             clearInterval(this._interval)
+            this._interval = undefined
+        }
     }
 
     connect() {
