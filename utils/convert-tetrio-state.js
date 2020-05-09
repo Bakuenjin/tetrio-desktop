@@ -20,9 +20,9 @@ const PLAYING_STATES = {
  */
 function identicalStates(prev, curr) {
     return (
-        prev.username === curr.username,
-        prev.level === curr.level,
-        prev.menu === curr.menu,
+        prev.username === curr.username &&
+        prev.level === curr.level &&
+        prev.menu === curr.menu &&
         prev.rank === curr.rank
     )
 }
