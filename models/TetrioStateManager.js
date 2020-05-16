@@ -1,6 +1,5 @@
 const TetrioWindow = require('./TetrioWindow')
 const TetriStateConverter = require('./TetrioStateConverter')
-const { convertTetrioState } = require('../utils/convert-tetrio-state')
 
 const OBSERVE_INTERVAL = 1000
 
