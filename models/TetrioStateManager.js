@@ -1,4 +1,5 @@
 const TetrioWindow = require('./TetrioWindow')
+const TetriStateConverter = require('./TetrioStateConverter')
 const { convertTetrioState } = require('../utils/convert-tetrio-state')
 
 const OBSERVE_INTERVAL = 1000
@@ -10,8 +11,8 @@ class TetrioStateManager {
      */
     constructor(tetrio) {
         this._tetrio = tetrio
-        this._state = { state: 'Not logged in', details: 'Main Menu' }
-        this._rawState = {}
+        this._converter = new TetriStateConverter()
+        this._state = this._converter._previousRichPresence
     }
 
     get state() { return this._state }
@@ -20,9 +21,7 @@ class TetrioStateManager {
         const rawState = await this._tetrio.fetchGameState()
         if (!rawState) return
 
-        const newState = convertTetrioState(this._rawState, rawState)
-        if (newState) this._state = newState
-        this._rawState = rawState
+        this._state = this._converter.convert(rawState)
     }
 
     async observe() {
