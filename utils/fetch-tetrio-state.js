@@ -5,6 +5,7 @@ const QUERIES = {
     username: 'document.querySelector("#me_username").innerText',
     level: 'document.querySelector("#me_level").innerText',
     menu: 'document.querySelector("#menus").getAttribute("data-menu-type")',
+    inGame: 'document.body.classList.contains("ingame")',
     rank: 'document.querySelector("#me_leaguerank").src'
 }
 
@@ -30,6 +31,7 @@ exports.fetchTetrioState = async (tetrioWindow) => {
             username:   (await windowFetch(tetrioWindow, QUERIES.username)).toUpperCase(),
             level:      await windowFetch(tetrioWindow, QUERIES.level),
             menu:       await windowFetch(tetrioWindow, QUERIES.menu),
+            inGame:     await windowFetch(tetrioWindow, QUERIES.inGame),
             rank
         }
     }
