@@ -6,6 +6,9 @@ const TetrioStore               = require('./TetrioStore')
 
 class TetrioWindow extends EventEmitter {
 
+    /**
+     * The window for the app
+     */
     constructor() {
         super()
         this._store = new TetrioStore()
@@ -20,6 +23,9 @@ class TetrioWindow extends EventEmitter {
 
         this._initialize()
     }
+    /**
+     * Initialise the window and loads tetr.io
+     */
 
     async _initialize() {
         this._window.on('ready-to-show', () => {
@@ -49,11 +55,17 @@ class TetrioWindow extends EventEmitter {
         this._window.setMenuBarVisibility(false)
         await this._window.loadURL('https://tetr.io/')
     }
+    /**
+     * Fetch the game state
+     */
 
     fetchGameState() {
         if (!this._window) return
         return fetchTetrioState(this._window)
     }
+    /**
+     * Check if player is active
+     */
 
     get isActive() { return !!this._window }
 

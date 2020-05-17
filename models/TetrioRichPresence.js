@@ -6,8 +6,8 @@ const UPDATE_INTERVAL = 5 * 1000
 class TetrioRichPresence {
 
     /**
-     * @param {string} id 
-     * @param {TetrioStateManager} tetrio 
+     * @param {string} id - The ID of the Discord Application
+     * @param {TetrioStateManager} tetrio - The state manager to pull data from
      */
     constructor(id, tetrio) {
         this._id = id
@@ -15,6 +15,9 @@ class TetrioRichPresence {
         this._prevState = {}
         this.connect()
     }
+    /**
+     * Start the rich presence loop
+     */
 
     async start() {
         await this._tetrio.observe()
@@ -24,6 +27,9 @@ class TetrioRichPresence {
         )
         this._updatePresence()
     }
+    /**
+     * Stop the rich presence loop
+     */
 
     stop() {
         this._tetrio.stopObserving()
@@ -32,15 +38,24 @@ class TetrioRichPresence {
             this._interval = undefined
         }
     }
+    /**
+     * Connect to Discord's RPC
+     */
 
     connect() {
         this._rp = richPresence(this._id)
     }
+    /**
+     * Disconnect from Discord's RPC
+     */
 
     disconnect() {
         this._rp.disconnect()
         this._rp = undefined
     }
+    /**
+     * Update the shown Rich Presence data
+     */
 
     _updatePresence() {
         if (!this._rp) return

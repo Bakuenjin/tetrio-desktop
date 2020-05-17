@@ -10,16 +10,16 @@ const QUERIES = {
 }
 
 /**
- * @param {BrowserWindow} browserWindow
- * @param {string} query
- * @returns {string}
+ * @param {BrowserWindow} browserWindow - The browser window to pull data from
+ * @param {string} query - The string to execute
+ * @returns {string} Response
  */
 const windowFetch = (browserWindow, query) => {
     return browserWindow.webContents.executeJavaScript(query)
 }
 
 /**
- * @param {BrowserWindow} tetrioWindow
+ * @param {BrowserWindow} tetrioWindow - The browser window to pull data from
  */
 exports.fetchTetrioState = async (tetrioWindow) => {
     try {

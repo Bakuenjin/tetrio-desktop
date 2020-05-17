@@ -22,11 +22,18 @@ const DETAIL_TYPES = {
 }
 
 class TetrioStateConverter {
+    /**
+    * Converts menu names in the tetr.io window
+    */
 
     constructor() {
         this._previousState = {}
         this._previousRichPresence = NOT_LOGGED_IN_PRESENSE
     }
+    /**
+     * Check if both states are identical
+     * @param {state} currentState - The state to check
+     */
 
     _identicalStates(currentState) {
         return (
@@ -37,6 +44,10 @@ class TetrioStateConverter {
             this._previousState.rank     === currentState.rank
         )
     }
+    /**
+     * Check if the player is logged in
+     * @param {state} currentState - The state to check
+     */
 
     _notLoggedIn(currentState) {
         return (
@@ -44,6 +55,11 @@ class TetrioStateConverter {
             currentState.username   === ''
         )
     }
+    /**
+     * Convert a state into a Discord Rich Presence object
+     * @param {state} state - The state to use
+     * @returns {presence}
+     */
 
     convert(state) {
         if (this._identicalStates(state))
