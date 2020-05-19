@@ -3,51 +3,69 @@ const { BrowserWindow } = require('electron')
 
 class TetrioStore {
 
-    
-    constructor() {
-        this._store = new ElectronStore()
-    }
+	
+	/**
+	* Store manager for  certain variables
+	*/
+	constructor() {
+		this._store = new ElectronStore()
+	}
 
-    /**
-     * @param {BrowserWindow} window 
-     */
-    initialize(window) {
-        this._window = window
-        this._window.on('close', () => {
-            this.setBounds()
-        })
-        this._window.on('maximize', () => { this.setIsMaximized() })
-        this._window.on('unmaximize', () => { this.setIsMaximized() })
-    }
+	/**
+	 * Initialise a browser window
+	 * @param {BrowserWindow} window - The browser window to initialise
+	 */
+	initialize(window) {
+		this._window = window
+		this._window.on('close', () => {
+			this.setBounds()
+		})
+		this._window.on('maximize', () => { this.setIsMaximized() })
+		this._window.on('unmaximize', () => { this.setIsMaximized() })
+	}
 
-    getBounds() {
-        return this._store.get(
-            'window-bounds', 
-            { width: 1280, height: 720 }
-        )
-    }
+	/**
+	* Get the boundaries of the window
+	* @returns {object}
+	*/
+	getBounds() {
+		return this._store.get(
+			'window-bounds', 
+			{ width: 1280, height: 720 }
+		)
+	}
 
-    setBounds() {
-        if (this._window) {
-            this._store.set(
-                'window-bounds',
-                this._window.getBounds()
-            )
-        }
-    }
+	/**
+	* Store the current window boundaries
+	*/
+	setBounds() {
+		if (this._window) {
+			this._store.set(
+				'window-bounds',
+				this._window.getBounds()
+			)
+		}
+	}
 
-    getIsMaximized() {
-        return this._store.get('window-maximized', false)
-    }
+	/**
+	* Check if the window is maximised
+	* @returns {boolean}
+	*/
+	getIsMaximized() {
+		return this._store.get('window-maximized', false)
+	}
 
-    setIsMaximized() {
-        if (this._window) {
-            this._store.set(
-                'window-maximized',
-                this._window.isMaximized()
-            )
-        }
-    }
+	/**
+	* Store the maximised state
+	*/
+	setIsMaximized() {
+		if (this._window) {
+			this._store.set(
+				'window-maximized',
+				this._window.isMaximized()
+			)
+		}
+	}
 
 }
 
