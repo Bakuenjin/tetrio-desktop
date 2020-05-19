@@ -42,11 +42,11 @@ class TetrioWindow extends EventEmitter {
 			this.emit('tetrio-closed')
 		})
 
-		this._window.on('blur', () => {
+		this._window.on('minimize', () => {
 			this._window.webContents.setAudioMuted(true)
 		})
 
-		this._window.on('focus', () => {
+		this._window.on('maximize', () => {
 			this._window.webContents.setAudioMuted(false)
 		})
 
