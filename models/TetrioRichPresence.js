@@ -3,6 +3,10 @@ const TetrioStateManager = require('./TetrioStateManager')
 
 const UPDATE_INTERVAL = 5 * 1000
 
+/**
+ * Responsible for sending the current TETR.IO state
+ * as a rich presence to the Discord client via the local RPC server.
+ */
 class TetrioRichPresence {
 
 	/**
@@ -15,10 +19,10 @@ class TetrioRichPresence {
 		this._prevState = {}
 		this.connect()
 	}
-	/**
-	 * Start the rich presence loop
-	 */
 
+	/**
+	 * Starts the interval responsible for updating the rich presence.
+	 */
 	async start() {
 		await this._tetrio.observe()
 		this._interval = setInterval(
@@ -27,10 +31,10 @@ class TetrioRichPresence {
 		)
 		this._updatePresence()
 	}
-	/**
-	 * Stop the rich presence loop
-	 */
 
+	/**
+	 * Stops the interval responsible for updating the rich presence.
+	 */
 	stop() {
 		this._tetrio.stopObserving()
 		if (typeof this._interval === 'number') {
@@ -38,25 +42,26 @@ class TetrioRichPresence {
 			this._interval = undefined
 		}
 	}
-	/**
-	 * Connect to Discord's RPC
-	 */
 
+	/**
+	 * Connects to the Discord clients local RPC server.
+	 */
 	connect() {
 		this._rp = richPresence(this._id)
 	}
-	/**
-	 * Disconnect from Discord's RPC
-	 */
 
+	/**
+	 * Disconnects from the Discord clients local RPC server.
+	 */
 	disconnect() {
 		this._rp.disconnect()
 		this._rp = undefined
 	}
-	/**
-	 * Update the shown Rich Presence data
-	 */
 
+	/**
+	 * Updates the rich presence by sending the current TETR.IO state
+	 * to the Discord client via the RPC connection.
+	 */
 	_updatePresence() {
 		if (!this._rp) return
 

@@ -10,16 +10,18 @@ const QUERIES = {
 }
 
 /**
- * @param {BrowserWindow} browserWindow - The browser window to pull data from
+ * @param {BrowserWindow} browserWindow - The browser window that executes the JavaScript
  * @param {string} query - The string to execute
- * @returns {string} Response
+ * @returns {Promise<any>} A promise that resolves with the result of the code execution
  */
 const windowFetch = (browserWindow, query) => {
 	return browserWindow.webContents.executeJavaScript(query)
 }
 
 /**
- * @param {BrowserWindow} tetrioWindow - The browser window to pull data from
+ * Fetches the current TETR.IO state by remotely executing
+ * JavaScript to gather data from the DOM.
+ * @param {BrowserWindow} tetrioWindow - The browser window that executes the JavaScript
  */
 exports.fetchTetrioState = async (tetrioWindow) => {
 	try {

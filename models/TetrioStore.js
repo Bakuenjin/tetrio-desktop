@@ -1,19 +1,18 @@
 const ElectronStore = require('electron-store')
 const { BrowserWindow } = require('electron')
 
+/**
+ * Responsible for persistent storing of miscellaneous data from the TETR.IO window.
+ */
 class TetrioStore {
 
-	
-	/**
-	* Store manager for  certain variables
-	*/
 	constructor() {
 		this._store = new ElectronStore()
 	}
 
 	/**
-	 * Initialise a browser window
-	 * @param {BrowserWindow} window - The browser window to initialise
+	 * Initializes the store via the specified `BrowserWindow` instance.
+	 * @param {BrowserWindow} window - The `BrowserWindow` instance
 	 */
 	initialize(window) {
 		this._window = window
@@ -25,8 +24,8 @@ class TetrioStore {
 	}
 
 	/**
-	* Get the boundaries of the window
-	* @returns {object}
+	* Reads the saved window dimensions.
+	* @returns {{width: number, height: number, x?: number, y?: number}}
 	*/
 	getBounds() {
 		return this._store.get(
@@ -36,7 +35,7 @@ class TetrioStore {
 	}
 
 	/**
-	* Store the current window boundaries
+	* Stores the current window dimensions (width, height, x, y).
 	*/
 	setBounds() {
 		if (this._window) {
@@ -48,7 +47,7 @@ class TetrioStore {
 	}
 
 	/**
-	* Check if the window is maximised
+	* Reads the saved window maximization state.
 	* @returns {boolean}
 	*/
 	getIsMaximized() {
@@ -56,7 +55,7 @@ class TetrioStore {
 	}
 
 	/**
-	* Store the maximised state
+	* Stores teh current window maximization state.
 	*/
 	setIsMaximized() {
 		if (this._window) {

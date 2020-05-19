@@ -1,4 +1,4 @@
-const NOT_LOGGED_IN_PRESENSE = {
+const NOT_LOGGED_IN_PRESENCE = {
 	state: 'Not logged in',
 	details: 'MAIN MENU',
 	smallImageKey: 'z',
@@ -21,20 +21,21 @@ const DETAIL_TYPES = {
 	'tetra_players': 'TETRA CHANNEL',
 }
 
+/**
+ * Responsible for converting TETR.IO states
+ * into rich presence objects.
+ */
 class TetrioStateConverter {
-	/**
-	* Converts menu names in the tetr.io window
-	*/
 
 	constructor() {
 		this._previousState = {}
-		this._previousRichPresence = NOT_LOGGED_IN_PRESENSE
+		this._previousRichPresence = NOT_LOGGED_IN_PRESENCE
 	}
+	
 	/**
-	 * Check if both states are identical
-	 * @param {state} currentState - The state to check
+	 * Checks if the current state is identical with the previously converted state.
+	 * @param {any} currentState - The current state
 	 */
-
 	_identicalStates(currentState) {
 		return (
 			this._previousState.username === currentState.username &&
@@ -44,30 +45,30 @@ class TetrioStateConverter {
 			this._previousState.rank     === currentState.rank
 		)
 	}
-	/**
-	 * Check if the player is logged in
-	 * @param {state} currentState - The state to check
-	 */
 
+	/**
+	 * Checks if the current state has a logged in user.
+	 * @param {any} currentState - The current state
+	 */
 	_notLoggedIn(currentState) {
 		return (
 			currentState.menu       === 'none' &&
 			currentState.username   === ''
 		)
 	}
-	/**
-	 * Convert a state into a Discord Rich Presence object
-	 * @param {state} state - The state to use
-	 * @returns {presence}
-	 */
 
+	/**
+	 * Convert the TETR.IO state into a rich presence object.
+	 * @param {any} state - The state to convert
+	 * @returns {any}
+	 */
 	convert(state) {
 		if (this._identicalStates(state))
 			return this._previousRichPresence
 		
 		if (this._notLoggedIn(state)) {
-			this._previousRichPresence = NOT_LOGGED_IN_PRESENSE
-			return NOT_LOGGED_IN_PRESENSE
+			this._previousRichPresence = NOT_LOGGED_IN_PRESENCE
+			return NOT_LOGGED_IN_PRESENCE
 		}
 		
 		const currentRichPresence = {
