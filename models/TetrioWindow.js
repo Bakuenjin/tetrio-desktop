@@ -42,6 +42,14 @@ class TetrioWindow extends EventEmitter {
 			this.emit('tetrio-closed')
 		})
 
+		this._window.on('blur', () => {
+			this._window.webContents.setAudioMuted(true)
+		})
+
+		this._window.on('focus', () => {
+			this._window.webContents.setAudioMuted(false)
+		})
+
 		this._window.webContents.on('new-window', (e, url) => {
 			e.preventDefault()
 			shell.openExternal(url)
