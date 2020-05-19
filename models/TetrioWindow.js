@@ -45,6 +45,13 @@ class TetrioWindow extends EventEmitter {
                 shell.openExternal(url)
             }
         })
+        
+        this._window.on('minimize', () => {
+            this._window.webContents.setAudioMuted(true);
+        });
+        this._window.on('maximize', () => {
+            this._window.webContents.setAudioMuted(false);
+        });
 
         this._window.setMenuBarVisibility(false)
         await this._window.loadURL('https://tetr.io/')
