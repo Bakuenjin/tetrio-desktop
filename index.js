@@ -22,25 +22,25 @@ let tetrioStateManager
 let tetrioRichPresence
 
 const openTetrio = () => {
-    tetrioWindow = new TetrioWindow()
-    tetrioStateManager = new TetrioStateManager(tetrioWindow)
-    tetrioRichPresence = new TetrioRichPresence(CLIENT_ID, tetrioStateManager)
+	tetrioWindow = new TetrioWindow()
+	tetrioStateManager = new TetrioStateManager(tetrioWindow)
+	tetrioRichPresence = new TetrioRichPresence(CLIENT_ID, tetrioStateManager)
 
-    tetrioWindow.on('tetrio-started', () => {
-        tetrioRichPresence.start()
-    })
+	tetrioWindow.on('tetrio-started', () => {
+		tetrioRichPresence.start()
+	})
 
-    tetrioWindow.on('tetrio-closed', () => {
-        tetrioRichPresence.disconnect()
-        tetrioWindow = undefined
-        tetrioRichPresence = undefined
-    })
+	tetrioWindow.on('tetrio-closed', () => {
+		tetrioRichPresence.disconnect()
+		tetrioWindow = undefined
+		tetrioRichPresence = undefined
+	})
 }
 
 app.on('activate', async () => {
-    if (!tetrioWindow) await openTetrio()
+	if (!tetrioWindow) await openTetrio()
 })
 
 app.on('ready', async () => {
-    await openTetrio()
+	await openTetrio()
 })
