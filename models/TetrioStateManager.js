@@ -10,7 +10,7 @@ const OBSERVE_INTERVAL = 1000
 class TetrioStateManager {
 
 	/**
-	 * @param {tetrioWindow} tetrio - The TETR.IO window from which the state is fetched
+	 * @param {TetrioWindow} tetrio - The TETR.IO window from which the state is fetched
 	 */
 	constructor(tetrio) {
 		this._tetrio = tetrio
