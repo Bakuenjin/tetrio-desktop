@@ -46,7 +46,7 @@ class TetrioWindow extends EventEmitter {
 			this._window.webContents.setAudioMuted(true)
 		})
 
-		this._window.on('maximize', () => {
+		this._window.on('focus', () => {
 			this._window.webContents.setAudioMuted(false)
 		})
 
