@@ -37,10 +37,10 @@ const openTetrio = () => {
 	})
 }
 
-app.on('activate', async () => {
-	if (!tetrioWindow) await openTetrio()
+app.on('activate', () => {
+	if (!tetrioWindow) openTetrio()
 })
 
-app.on('ready', async () => {
-	await openTetrio()
+app.on('ready', () => {
+	openTetrio()
 })
