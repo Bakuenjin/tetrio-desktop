@@ -1,3 +1,5 @@
+const TetrioState = require('./TetrioState')
+
 const NOT_LOGGED_IN_PRESENCE = {
 	state: 'Not logged in',
 	details: 'MAIN MENU',
@@ -28,45 +30,20 @@ const DETAIL_TYPES = {
 class TetrioStateConverter {
 
 	constructor() {
-		this._previousState = {}
+		this._previousState = new TetrioState()
 		this._previousRichPresence = NOT_LOGGED_IN_PRESENCE
-	}
-	
-	/**
-	 * Checks if the current state is identical with the previously converted state.
-	 * @param {any} currentState - The current state
-	 */
-	_identicalStates(currentState) {
-		return (
-			this._previousState.username === currentState.username &&
-			this._previousState.level    === currentState.level &&
-			this._previousState.menu     === currentState.menu &&
-			this._previousState.inGame   === currentState.inGame &&
-			this._previousState.rank     === currentState.rank
-		)
-	}
-
-	/**
-	 * Checks if the current state has a logged in user.
-	 * @param {any} currentState - The current state
-	 */
-	_notLoggedIn(currentState) {
-		return (
-			currentState.menu       === 'none' &&
-			currentState.username   === ''
-		)
 	}
 
 	/**
 	 * Convert the TETR.IO state into a rich presence object.
-	 * @param {any} state - The state to convert
-	 * @returns {any}
+	 * @param {TetrioState} state - The state to convert
+	 * @returns {{ state: string, details: string, smallImageKey: string, smallImageText: string, largeImageText?: string}}
 	 */
 	convert(state) {
-		if (this._identicalStates(state))
+		if (state.equalTo(this._previousState))
 			return this._previousRichPresence
 		
-		if (this._notLoggedIn(state)) {
+		if (!state.userLoggedIn()) {
 			this._previousRichPresence = NOT_LOGGED_IN_PRESENCE
 			return NOT_LOGGED_IN_PRESENCE
 		}
