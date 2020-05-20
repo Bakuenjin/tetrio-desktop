@@ -30,7 +30,7 @@ const DETAIL_TYPES = {
 class TetrioStateConverter {
 
 	constructor() {
-		this._previousState = new TetrioState()
+		this._previousState = {}
 		this._previousRichPresence = NOT_LOGGED_IN_PRESENCE
 	}
 
