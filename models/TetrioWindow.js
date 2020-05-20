@@ -3,6 +3,7 @@ const { EventEmitter }          = require('events')
 const { BrowserWindow, shell }  = require('electron')
 const { fetchTetrioState }      = require('../utils/fetch-tetrio-state')
 const TetrioStore               = require('./TetrioStore')
+const TetrioStateFetcher               = require('./TetrioStateFetcher')
 
 /**
  * Responsible for creating a BrowserWindow instance
@@ -13,6 +14,7 @@ class TetrioWindow extends EventEmitter {
 	constructor() {
 		super()
 		this._store = new TetrioStore()
+		this._fetcher = new TetrioStateFetcher()
 		this._window = new BrowserWindow({
 			title: 'TETR.IO',
 			show: false,
@@ -68,9 +70,9 @@ class TetrioWindow extends EventEmitter {
 	/**
 	 * Fetches the current TETR.IO state
 	 */
-	fetchGameState() {
+	async fetchGameState() {
 		if (!this._window) return
-		return fetchTetrioState(this._window)
+		return await this._fetcher.fetch(this._window)
 	}
 
 	/**
