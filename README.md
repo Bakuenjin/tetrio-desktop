@@ -1,5 +1,5 @@
-# [TETR.IO](https://tetr.io/) Desktop
-This is just the [TETR.IO](https://tetr.io/) website opened from electron to have a standalone game with limited rich presence capabilities.
+# TETR.IO released its own official desktop client, which you can download [HERE](https://tetr.io/about/desktop/)!
+This is just the TETR.IO website opened from electron to have a standalone game with limited rich presence capabilities.
 
 ### Using the packed binaries (Windows 64-bit only currently)
 Just head over to the [release tab](https://github.com/Bakuenjin/tetrio-desktop/releases) and download the latest version.
